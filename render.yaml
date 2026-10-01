@@ -1,0 +1,39 @@
+# Render Blueprint: provisions the FastAPI backend and a managed PostgreSQL
+# database together. Deploy via https://dashboard.render.com/blueprints
+# (New → Blueprint → point at this repository).
+#
+# After the blueprint deploys, set BACKEND_CORS_ORIGINS and, if desired,
+# OPENAI_API_KEY/LLM_PROVIDER in the Render dashboard (see
+# docs/PRODUCTION_DEPLOYMENT.md for the full runbook).
+services:
+  - type: web
+    name: chatbuild-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: ENVIRONMENT
+        value: prod
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chatbuild-db
+          property: connectionString
+      - key: BACKEND_CORS_ORIGINS
+        value: '["https://CHANGE-ME.github.io"]'
+      - key: LLM_PROVIDER
+        value: mock
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: CLOUD_PROVIDER
+        value: none
+
+databases:
+  - name: chatbuild-db
+    plan: free
+    postgresMajorVersion: "16"

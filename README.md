@@ -64,6 +64,7 @@ for the interactive API documentation.
 
 - [Setup guide](docs/SETUP.md)
 - [API reference](docs/API.md)
+- [Production deployment runbook](docs/PRODUCTION_DEPLOYMENT.md)
 - [Cloud migration guide](docs/CLOUD_MIGRATION.md)
 
 ## 🧪 Testing
