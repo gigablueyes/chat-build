@@ -216,3 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / frontend
+node_modules/
+frontend/dist/
+.vite/
+npm-debug.log*
+
+# Backend local artifacts
+backend/.venv/
+backend/*.db
+backend/.pytest_cache/
